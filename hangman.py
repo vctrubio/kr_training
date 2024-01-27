@@ -29,6 +29,7 @@ def print_word():
         sys.stdout.write(' ')
     print()
 
+
 if len(sys.argv) > 1:
     word = sys.argv[1]
 else:
@@ -36,6 +37,7 @@ else:
 
 lst = set()
 count = 0
+
 
 while count < 6:
     print_menu()
@@ -61,7 +63,8 @@ while count < 6:
         exit(1) 
     print()
 
+
 print(f'Game is OVER. Good try, better luck next time.')
-print(f'Did you know, you could set your own WORD by running: {blue_cc} python3 hangman.py JoeyThepython {reset_cc}')
+print(f'Did you know, you could set your own HANGMAN by running: {blue_cc} python3 hangman.py JoeyThepythononicHanger {reset_cc}')
 
 
