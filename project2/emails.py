@@ -4,7 +4,6 @@ Please find the complete project in:
         https://github.com/vctrubio/kr_training/tree/main/project2
 '''
 
-from datetime import datetime
 import os
 import smtplib
 import schedule
@@ -12,16 +11,14 @@ import time
 import logging
 
 from dotenv import load_dotenv
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
 
 SMTP_SERVER = 'smtp.mail.yahoo.com'
 SMTP_PORT = 587
-logging.basicConfig(filename='logs/mantainance.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-logging.basicConfig(level=logging.INFO)
+
+logging.basicConfig(filename='logs/mantainance.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.info(f"- Init schedule...")
 
 
@@ -102,6 +99,5 @@ try:
     while True:
         schedule.run_pending()
         time.sleep(1)
-        # logging.info(f"- Run loop completed...")
 except KeyboardInterrupt:
     logging.info(f"- End schedule by User Input...")
