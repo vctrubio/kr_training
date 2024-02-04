@@ -9,6 +9,11 @@ SMTP_PORT = 587
 
 RECIPIENT_DUMMY = 'titorritop@gmail.com'
 
+'''
+This is just the script.
+Please find the complete project in:
+        https://github.com/vctrubio/kr_training/tree/main/project2
+'''
 
 def init():
     load_dotenv()
@@ -33,3 +38,6 @@ email, password = init()
 
 i = mail_server(email, password)
 # print(i)
+
+
+
