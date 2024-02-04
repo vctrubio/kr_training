@@ -1,6 +1,10 @@
 # How to 
-: 'make run' to set up server
-: 'make report' to create reports seeds if needed
+- 'make run' to set up server
+- 'make report' to create reports seeds if needed
+
+
+# Schedule Lib
+- the library request you leave the session open in terminal
 
 
 # Structure
@@ -22,3 +26,8 @@ Goal of this project is
 - Finally, we will autometate the script 
 - Erros will be under teh 'project2/logs' dir
 
+
+
+# Problems.
+https://stackoverflow.com/questions/73365098/how-to-turn-on-less-secure-app-access-on-google
+-- Solution - yahoo

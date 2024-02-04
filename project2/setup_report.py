@@ -8,7 +8,6 @@ Assisted with ai to create seeding data
 DIR = 'files/reports'
 
 def create_report_files():
-    # Ensure the reports directory exists, create if not
     os.makedirs(DIR, exist_ok=True)
 
     for i in range(1, 11):
