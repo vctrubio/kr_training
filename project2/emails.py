@@ -52,6 +52,8 @@ def mail_server(email, password):
     except Exception as e:
         print('notokokoko')
         logging.error(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Error in mail_server... exit code 101: {e}")
+        print('Error in mail_server... exit code 101: {e}')
+        exit(101)
 
 
 def create_mail(email, send_to, subject, body):
