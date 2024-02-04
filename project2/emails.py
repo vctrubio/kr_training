@@ -4,10 +4,12 @@ Please find the complete project in:
         https://github.com/vctrubio/kr_training/tree/main/project2
 '''
 
+import datetime
 import os
 import smtplib
 import schedule
 import time
+import logging
 
 from dotenv import load_dotenv
 
@@ -17,6 +19,7 @@ from email.mime.base import MIMEBase
 
 SMTP_SERVER = 'smtp.mail.yahoo.com'
 SMTP_PORT = 587
+logging.basicConfig(filename='logs/mantainance.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def init():
@@ -70,30 +73,38 @@ def iterate_report():
 def send_mail(context):
     global email, email_server, recipients
     if not email_server:
-        print('BIG ERROR in email server')
+        logging.error('BIG ERROR in email server')
         exit(101)
         
     try:
         for recipient in recipients:
             message = create_mail(email, recipient, 'Automated Email', context)
             email_server.sendmail(email, recipient, message.as_string())
-            print(f'Email sent to {recipient}')
+            logging.info(f'Email sent to {recipient}')
+            
     except Exception as e:
-        print(f'Mail Error: {e}')
+        logging.error(f'Mail Error: {e}')
     finally:
         email_server.quit()
-    print('Email server completed')
+        logging.info('Email server completed')
 
-
-print('init schedule...')
 
 email, password = init()
 email_server = mail_server(email, password)
 recipients = recipients_list()
 
 
+logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Init schedule...')
+
 schedule.every().day.at("12:00").do(iterate_report)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+try:
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+except KeyboardInterrupt:
+    logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - End schedule by User Input...')
+finally:
+    if email_server:
+        email_server.quit()
+        logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Email server shutdown...')
