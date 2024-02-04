@@ -22,7 +22,7 @@ SMTP_PORT = 587
 logging.basicConfig(filename='logs/mantainance.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.basicConfig(level=logging.INFO)
-logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Init schedule...")
+logging.info(f"- Init schedule...")
 
 
 def init():
@@ -46,13 +46,11 @@ def mail_server(email, password):
         email_server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         email_server.starttls()
         email_server.login(email, password)
-        logging.ifo(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Log into mail_server succesfully...")
-        print('okokokoko')
+        logging.info(f"- Log into mail_server succesfully...")
         return email_server
     except Exception as e:
-        print('notokokoko')
-        logging.error(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Error in mail_server... exit code 101: {e}")
-        print('Error in mail_server... exit code 101: {e}')
+        logging.error(f"- Error in mail_server... exit code 101: {e}")
+        print('Error in mail_server... exiting')
         exit(101)
 
 
@@ -62,6 +60,7 @@ def create_mail(email, send_to, subject, body):
     message['To'] = send_to
     message['Subject'] = subject
     message.attach(MIMEText(body, 'plain'))
+    
     return message
 
 
@@ -84,7 +83,6 @@ def send_mail(context):
             message = create_mail(email, recipient, 'Automated Email', context)
             email_server.sendmail(email, recipient, message.as_string())
             logging.info(f'Email sent to {recipient}')
-            
     except Exception as e:
         logging.error(f'Mail Error: {e}')
     finally:
@@ -97,7 +95,6 @@ email, password = init()
 email_server = mail_server(email, password)
 recipients = recipients_list()
 
-
 iterate_report() #once now
 schedule.every(24).hours.do(iterate_report) #and then every 24 hours
 
@@ -105,10 +102,6 @@ try:
     while True:
         schedule.run_pending()
         time.sleep(1)
-        logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Run loop completed...")
+        # logging.info(f"- Run loop completed...")
 except KeyboardInterrupt:
-    logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - End schedule by User Input...")
-# finally:
-#     if email_server is not None:
-#         email_server.quit()
-#         logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Email server shutdown...")
+    logging.info(f"- End schedule by User Input...")
