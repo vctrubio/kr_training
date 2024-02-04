@@ -4,7 +4,7 @@ Please find the complete project in:
         https://github.com/vctrubio/kr_training/tree/main/project2
 '''
 
-import datetime
+from datetime import datetime
 import os
 import smtplib
 import schedule
@@ -94,7 +94,7 @@ email_server = mail_server(email, password)
 recipients = recipients_list()
 
 
-logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Init schedule...')
+logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Init schedule...")
 
 schedule.every().day.at("12:00").do(iterate_report)
 
@@ -103,8 +103,8 @@ try:
         schedule.run_pending()
         time.sleep(1)
 except KeyboardInterrupt:
-    logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - End schedule by User Input...')
+    logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - End schedule by User Input...")
 finally:
     if email_server:
         email_server.quit()
-        logging.info(f'{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Email server shutdown...')
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Email server shutdown...")
